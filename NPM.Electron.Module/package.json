@@ -1,0 +1,19 @@
+{
+  "name": "dotvvm-electron",
+  "version": "0.0.11",
+  "description": "DotVVM on Electron packages",
+  "main": "index.js",
+
+  "repository": "https://github.com/riganti/dotvvm-electron",
+  "keywords": [
+    "Electron",
+    "DotVVM",
+    "Integration"
+  ],
+  "author": "Riganti",
+  "devDependencies": {
+    "electron": "~1.6.2",
+    "freeport": "~1.0.5",
+    "ws": "~3.2.0"
+  }
+}

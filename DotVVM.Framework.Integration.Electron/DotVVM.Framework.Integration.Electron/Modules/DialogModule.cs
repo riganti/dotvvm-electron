@@ -16,7 +16,6 @@ namespace DotVVM.Framework.Integration.Electron.Modules
         public async Task<IEnumerable<string>> ShowOpenDialogAsync(ShowOpenDialogOptions options = null)
         {
             var result = await SendActionAsync(arguments: options);
-
             return result.ToObject<List<string>>();
         }
 
