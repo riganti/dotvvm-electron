@@ -64,7 +64,7 @@ function BuildPackages() {
 }
 
 function PushPackages() {
-    dotnet nuget push ".\DotVVM.Framework.Integration.Electron\.nupkgs\*.nupkg" --source $server --api-key $apiKey | Out-Host 
+    dotnet nuget push ".\.nupkgs\*.nupkg" --source $server --api-key $apiKey | Out-Host 
 }
 
 function GitCheckout() {
