@@ -39,7 +39,7 @@ function CleanOldGeneratedPackages() {
 
 function SetVersion() {
   	foreach ($package in $packages) {
-        $filePath = ".\$($package.Directory)\$($package.Directory).csproj"
+        $filePath = ".\$($package.Directory).csproj"
         $file = [System.IO.File]::ReadAllText($filePath, [System.Text.Encoding]::UTF8)
 		$file = [System.Text.RegularExpressions.Regex]::Replace($file, "\<VersionPrefix\>([^<]+)\</VersionPrefix\>", "<VersionPrefix>" + $version + "</VersionPrefix>")
 		$file = [System.Text.RegularExpressions.Regex]::Replace($file, "\<PackageVersion\>([^<]+)\</PackageVersion\>", "<PackageVersion>" + $version + "</PackageVersion>")
@@ -49,7 +49,7 @@ function SetVersion() {
 
 function BuildPackages() {
 	foreach ($package in $packages) {
-		cd .\$($package.Directory)
+		cd .\$($package.Directory)\
 		
 		if ($nugetRestoreAltSource -eq "") {
 			& dotnet restore | Out-Host
@@ -64,7 +64,7 @@ function BuildPackages() {
 }
 
 function PushPackages() {
-    dotnet nuget push ".\.nupkgs\*.nupkg" --source $server --api-key $apiKey | Out-Host 
+    dotnet nuget push ".\DotVVM.Framework.Integration.Electron\.nupkgs\*.nupkg" --source $server --api-key $apiKey | Out-Host 
 }
 
 function GitCheckout() {
@@ -83,7 +83,7 @@ function GitTagVersion() {
 ### Configuration
 
 $packages = @(
-	[pscustomobject]@{ Package = "DotVVM.Framework.Integration.Electron"; Directory = "DotVVM.Framework.Integration.Electron" }
+	[pscustomobject]@{ Package = "DotVVM.Framework.Integration.Electron"; Directory = "DotVVM.Framework.Integration.Electron\DotVVM.Framework.Integration.Electron" }
 )
 
 
