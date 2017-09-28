@@ -32,7 +32,8 @@ $LASTEXITCODE
 
 function CleanOldGeneratedPackages() {
     If (Test-Path ".\DotVVM.Framework.Integration.Electron\.nupkgs"){
-        Remove-Item ".\DotVVM.Framework.Integration.Electron\.nupkgs\*.nupkgs"
+        Get-ChildItem ".\DotVVM.Framework.Integration.Electron\.nupkgs" | ForEach-Object $_{ Remove-Item $_.FullName -Recurse -Force}
+        Remove-Item ".\DotVVM.Framework.Integration.Electron\.nupkgs"
    }
 }
 
