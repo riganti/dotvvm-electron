@@ -2,7 +2,8 @@ namespace DotVVM.Framework.Integration.Electron.Services
 {
     public enum ElectronRequestType
     {
-        Method = 0,
-        Event = 1
+        None = 0,
+        Method = 1,
+        Event = 2
     }
 }

@@ -152,7 +152,7 @@ module.exports.run = function (dirName) {
 
       var electronAction = JSON.parse(data);
       /* Method */
-      if (electronAction.type == 0) {
+      if (electronAction.type == 1) {
         var electronModule;
         if (electronAction.module == 'mainWindow') {
           electronModule = mainWindow;
@@ -175,7 +175,7 @@ module.exports.run = function (dirName) {
 
       }
       /* Event */
-      else if (electronAction.type == 1) {
+      else if (electronAction.type == 2) {
         if (electronAction.module == "app") {
           app.on(electronAction.method, (event) => {
             var response = {
