@@ -31,8 +31,8 @@ $LASTEXITCODE
 }
 
 function CleanOldGeneratedPackages() {
-    If (Test-Path "**/.nupkgs"){
-    Remove-Item "**/.nupkgs"
+    If (Test-Path ".\DotVVM.Framework.Integration.Electron\.nupkgs"){
+        Remove-Item ".\DotVVM.Framework.Integration.Electron\.nupkgs\*.nupkgs"
    }
 }
 
