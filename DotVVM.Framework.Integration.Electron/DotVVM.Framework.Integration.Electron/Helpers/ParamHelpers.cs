@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace DotVVM.Framework.Integration.Electron.Helpers
+namespace DotVVM.Electron.Helpers
 {
     public static class ParamHelpers
     {

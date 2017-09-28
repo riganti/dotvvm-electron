@@ -2,7 +2,7 @@ using System.Net.WebSockets;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DotVVM.Framework.Integration.Electron.Services
+namespace DotVVM.Electron.Services
 {
     public static class WebSocketHandlerBuilder
     {

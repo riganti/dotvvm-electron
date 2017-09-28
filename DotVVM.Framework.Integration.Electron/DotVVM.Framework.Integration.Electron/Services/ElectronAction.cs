@@ -1,6 +1,6 @@
 using System;
 
-namespace DotVVM.Framework.Integration.Electron.Services
+namespace DotVVM.Electron.Services
 {
     public class ElectronAction
     {

@@ -1,6 +1,6 @@
-using DotVVM.Framework.Integration.Electron.Modules;
+using DotVVM.Electron.Modules;
 
-namespace DotVVM.Framework.Integration.Electron.Services
+namespace DotVVM.Electron.Services
 {
     public class ElectronService
     {

@@ -1,9 +1,9 @@
-using DotVVM.Framework.Integration.Electron.Modules.Options;
-using DotVVM.Framework.Integration.Electron.Services;
+using DotVVM.Electron.Modules.Options;
+using DotVVM.Electron.Services;
 using System.Threading.Tasks;
 
 
-namespace DotVVM.Framework.Integration.Electron.Modules
+namespace DotVVM.Electron.Modules
 {
     public class MenuModule : ElectronModule
     {

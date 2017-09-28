@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using DotVVM.Framework.Integration.Electron.Services;
-using DotVVM.Framework.Integration.Electron.Helpers;
+using DotVVM.Electron.Services;
+using DotVVM.Electron.Helpers;
 
-namespace DotVVM.Framework.Integration.Electron.Modules
+namespace DotVVM.Electron.Modules
 {
     public abstract class ElectronModule
     {

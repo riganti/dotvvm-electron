@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json.Linq;
 
-namespace DotVVM.Framework.Integration.Electron.Services
+namespace DotVVM.Electron.Services
 {
     public class ElectronResponse
     {

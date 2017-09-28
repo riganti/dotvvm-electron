@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace DotVVM.Framework.Integration.Electron.Modules.Options
+namespace DotVVM.Electron.Modules.Options
 {
     public class ShowMessageBoxOptions
     {

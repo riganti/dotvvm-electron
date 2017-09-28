@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace DotVVM.Framework.Integration.Electron.Helpers
+namespace DotVVM.Electron.Helpers
 {
     public static class StringExtensions
     {

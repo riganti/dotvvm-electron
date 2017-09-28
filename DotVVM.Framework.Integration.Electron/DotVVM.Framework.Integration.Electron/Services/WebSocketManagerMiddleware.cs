@@ -3,7 +3,7 @@ using System.Net.WebSockets;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace DotVVM.Framework.Integration.Electron.Services
+namespace DotVVM.Electron.Services
 {
     public class WebSocketManagerMiddleware
     {

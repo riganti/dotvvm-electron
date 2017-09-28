@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace DotVVM.Framework.Integration.Electron.Modules
+namespace DotVVM.Electron.Modules
 {
     public class FileFilter
     {

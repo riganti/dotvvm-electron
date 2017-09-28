@@ -1,11 +1,11 @@
-using DotVVM.Framework.Integration.Electron.Helpers;
-using DotVVM.Framework.Integration.Electron.Modules.Options;
-using DotVVM.Framework.Integration.Electron.Services;
+using DotVVM.Electron.Helpers;
+using DotVVM.Electron.Modules.Options;
+using DotVVM.Electron.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
-namespace DotVVM.Framework.Integration.Electron.Modules
+namespace DotVVM.Electron.Modules
 {
     public class DialogModule : ElectronModule
     {

@@ -18,6 +18,8 @@
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
     <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>DotVVM.Electron</AssemblyName>
+    <RootNamespace>DotVVM.Electron</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
