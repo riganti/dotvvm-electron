@@ -31,7 +31,9 @@ $LASTEXITCODE
 }
 
 function CleanOldGeneratedPackages() {
+    If (Test-Path "**/.nupkgs"){
     Remove-Item "**/.nupkgs"
+   }
 }
 
 
