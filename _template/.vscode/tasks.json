@@ -1,0 +1,19 @@
+{
+    "version": "0.1.0",
+    "command": "dotnet",
+    "isShellCommand": true,
+    "args": [],
+    "tasks": [
+        {
+            "taskName": "publish",
+            "args": [
+                "${workspaceRoot}/webapp/webapp.csproj",
+                "--configuration", "Debug",
+                "--output", "bin/dist",
+                "--runtime", "win10-x64"
+            ],
+            "isBuildCommand": true,
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
