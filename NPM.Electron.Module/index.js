@@ -1,4 +1,6 @@
-module.exports.run = function (dirName) {
+module.exports.run = function (dirName, options) {
+  options = options || { };
+
   const electron = require('electron')
   const os = require('os');
   const path = require('path')
@@ -15,7 +17,11 @@ module.exports.run = function (dirName) {
 
   function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({ width: 800, height: 600 })
+    mainWindow = new BrowserWindow(options.browserWindowOptions)
+   
+    if(options.browserWindowCreated && typeof options.browserWindowCreated == 'function') {
+      options.browserWindowCreated(mainWindow);
+    }
 
     // and load the index.html of the app.
     mainWindow.loadURL(url.format({
@@ -23,9 +29,6 @@ module.exports.run = function (dirName) {
       protocol: 'file:',
       slashes: true
     }))
-
-    // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
@@ -119,7 +122,7 @@ module.exports.run = function (dirName) {
   });
 
   function initializeConnection(serverPort) {
-    webSocketConnect(`ws://localhost:${serverPort}/ws`);
+    webSocketConnect(`ws://localhost:${serverPort}/ws-electron`);
 
     console.log('redirecting to web page');
 
@@ -151,16 +154,9 @@ module.exports.run = function (dirName) {
       console.log('Received: ' + data);
 
       var electronAction = JSON.parse(data);
-      /* Method */
-      if (electronAction.type == 1) {
-        var electronModule;
-        if (electronAction.module == 'mainWindow') {
-          electronModule = mainWindow;
-        }
-        else {
-          electronModule = electron[electronAction.module];
-        }
+      var electronModule = resolveElectronModule(electronAction.module);
 
+      if (electronAction.type == 'Method') {
         var result = electronModule[electronAction.method].apply(electronModule, electronAction.arguments);
 
         var response = {
@@ -172,30 +168,38 @@ module.exports.run = function (dirName) {
         console.log('Sending: ' + JSON.stringify(response));
 
         ws.send(JSON.stringify(response));
-
       }
-      /* Event */
-      else if (electronAction.type == 2) {
-        if (electronAction.module == "app") {
-          app.on(electronAction.method, (event) => {
-            var response = {
-              type: "Event",
-              actionId: electronAction.id,
-              result: event
-            };
+      else if (electronAction.type == 'Event') {
+        electronModule.on(electronAction.method, (event) => {
+          var response = {
+            type: "Event",
+            actionId: electronAction.id,
+            result: event
+          };
 
-            ws.send(JSON.stringify(response));
+          ws.send(JSON.stringify(response));
 
-            if (electronAction.usePreventDefault) {
-              event.preventDefault();
-            }
-          });
-        }
-
-
+          if (electronAction.usePreventDefault) {
+            event.preventDefault();
+          }
+        });
       }
-
-
     });
+  }
+
+  function resolveElectronModule(moduleName) {
+    var electronModule;
+    if (moduleName == 'mainWindow') {
+      electronModule = mainWindow;
+    }
+    else {
+      electronModule = electron[moduleName];
+    }
+
+    return electronModule;
+  }
+
+  return {
+    app: app,
   }
 }

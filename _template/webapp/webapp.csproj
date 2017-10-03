@@ -12,7 +12,8 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DotVVM.Framework.Integration.Electron" Version="0.0.16-beta1" />
+    <ProjectReference Include="..\..\DotVVM.Framework.Integration.Electron\DotVVM.Framework.Integration.Electron\DotVVM.Framework.Integration.Electron.csproj" />
+    <!-- <PackageReference Include="DotVVM.Framework.Integration.Electron" Version="0.0.16-beta1" /> -->
     <PackageReference Include="DotVVM.AspNetCore" Version="1.1.6.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.WebSockets" Version="2.0.0" />

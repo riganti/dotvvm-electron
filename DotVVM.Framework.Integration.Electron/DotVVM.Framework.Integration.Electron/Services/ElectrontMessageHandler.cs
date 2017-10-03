@@ -17,7 +17,6 @@ namespace DotVVM.Electron.Services
             _serializerSettings = new JsonSerializerSettings();
             _serializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             _serializerSettings.NullValueHandling = NullValueHandling.Ignore;
-            _serializerSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
             _serializerSettings.CheckAdditionalContent = true;
             _serializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
         }

@@ -2,7 +2,6 @@ using DotVVM.Electron.Helpers;
 using DotVVM.Electron.Services;
 using System.Threading.Tasks;
 
-
 namespace DotVVM.Electron.Modules
 {
     public class ShellModule : ElectronModule
@@ -10,7 +9,6 @@ namespace DotVVM.Electron.Modules
         public ShellModule(ElectronMessageHandler handler) : base(handler)
         {
         }
-
 
         public async Task<bool> ShowItemInFolderAsync(string fullPath)
         {
@@ -35,6 +33,5 @@ namespace DotVVM.Electron.Modules
             var result = await SendActionAsync(arguments:ParamHelpers.GetParams(fullPath));
             return result.ToObject<bool>();
         }
-
     }
 }

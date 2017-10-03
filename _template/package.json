@@ -10,13 +10,10 @@
   "keywords": [
     "Electron",
     "DotVVM",
-    "Integration"
+    "Template"
   ],
   "author": "Adam Jez",
-  "devDependencies": {
-    "electron": "~1.6.2",
-    "freeport": "~1.0.5",
-    "ws": "~3.2.0",
-    "dotvvm-electron": "~0.0.15-beta1"
+  "dependencies": {
+    "dotvvm-electron": "~0.0.20-beta1"
   }
 }

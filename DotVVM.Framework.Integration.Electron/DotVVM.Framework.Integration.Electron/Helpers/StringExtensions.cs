@@ -29,8 +29,5 @@ namespace DotVVM.Electron.Helpers
             }
             return newString.ToString();
         }
-
-
     }
-
 }

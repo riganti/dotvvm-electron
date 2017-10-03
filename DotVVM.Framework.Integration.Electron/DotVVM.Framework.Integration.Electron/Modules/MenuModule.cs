@@ -20,6 +20,5 @@ namespace DotVVM.Electron.Modules
         {
             await SendActionAsync();
         }
-
     }
 }

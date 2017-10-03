@@ -29,26 +29,16 @@ namespace WebApp
             {
                 options.AddDefaultTempStorages("Temp");
             });
-            services.AddTransient<ElectronService>();
-            services.AddTransient<DialogModule>();
-            services.AddTransient<AppModule>();
-            services.AddTransient<ShellModule>();
-             services.AddTransient<MenuModule>();
-            services.AddTransient<ClipboardModule>();
-            services.AddTransient<MainWindowModule>();
+
+            services.AddElectronIntegration();
 
             services.AddTransient<DefaultViewModel>();
-
-            services.AddSingleton<ElectronMessageHandler>();
-            services.AddSingleton<WebSocketHandler, ElectronMessageHandler>(c => c.GetService<ElectronMessageHandler>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseWebSockets();
-
-            app.UseWebSocketHandler("/ws");
+            app.UseElectronIntegration();
 
             // use DotVVM
             var dotvvmConfiguration = app.UseDotVVM<DotvvmStartup>(env.ContentRootPath);

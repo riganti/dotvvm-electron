@@ -20,7 +20,7 @@ Replace runtime identifier (RID) with your operating system RID. For list of RID
     * readHTML
     * writeHTML
     * readRTF
-    * writeRTP
+    * writeRTF
     * readBookmark
     * writeBookmark
     * clear

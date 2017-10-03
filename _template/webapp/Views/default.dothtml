@@ -5,13 +5,12 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Title</title>
 </head>
 <body>
 
 	<h1>{{value: Title}}</h1>
 
-    <dot:RouteLink Text="Page 1" RouteName="Page1" />
     <dot:Button Text="Show MessageBox" Click="{command: ShowMessageBox()}" />
     <dot:Button Text="Event browser window focus" Click="{command: BrowserWindowFocus()}" />
     <dot:Button Text="Open external link" Click="{command: OpenExternal()}" />

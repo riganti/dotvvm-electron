@@ -14,15 +14,15 @@ namespace WebApp.ViewModels
     public class DefaultViewModel : DotvvmViewModelBase
     {
         private ElectronService _electronService;
-        public string ClipBoardReadTextProperty { get; set; }
-        public ReadBookmarkOptions ReadBookMarkOptions { get; set; }
+
         public string Title { get; set; }
+
         public DefaultViewModel(ElectronService electronService)
         {
             _electronService = electronService;
             Title = "Hello from DotVVM!";
-
         }
+
         public async Task BrowserWindowFocus()
         {
             await _electronService.App.BrowserWindowFocus(() =>
@@ -44,6 +44,7 @@ namespace WebApp.ViewModels
             };
             await _electronService.Dialog.ShowMessageBox(options);
         }
+        
         public async Task MinimizeWindow()
         {
             await _electronService.MainWindow.MinimizeAsync();

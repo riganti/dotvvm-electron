@@ -36,7 +36,7 @@ namespace DotVVM.Electron.Modules
             return response.Result;
         }
 
-        protected async Task SendEventAsync([CallerMemberName] string methodName = null, bool usePreventDefault = false)
+        protected async Task SubscribeEventAsync(bool usePreventDefault = false, [CallerMemberName] string methodName = null)
         {
             ThrowExceptionWhenMethodNameIsNull(methodName);
 
