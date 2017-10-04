@@ -184,7 +184,7 @@ module.exports.run = function (dirName, options) {
 
             ws.send(JSON.stringify(response));
 
-            if (electronAction.usePreventDefault) {
+            if (electronAction.arguments.usePreventDefault) {
               event.preventDefault();
             }
           }

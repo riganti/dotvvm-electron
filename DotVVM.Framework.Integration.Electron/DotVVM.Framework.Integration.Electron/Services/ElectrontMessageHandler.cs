@@ -30,7 +30,7 @@ namespace DotVVM.Electron.Services
             };
         }
 
-        public async Task<ElectronResponse> SendActionAsync(ElectronAction action)
+        public async Task<ElectronResponse> SendActionAsync<TArgument>(ElectronAction<TArgument> action)
         {
             var serializedObject = JsonConvert.SerializeObject(action, _serializerSettings);
 
@@ -39,7 +39,7 @@ namespace DotVVM.Electron.Services
             return await ReceiveResponseForActionAsync(action.Id);
         }
 
-        public async Task SubscribeToEventAsync(ElectronAction action, Func<Task> eventHandler)
+        public async Task SubscribeToEventAsync(ElectronAction<ElectronEventArguments> action, Func<Task> eventHandler)
         {
             var serializedObject = JsonConvert.SerializeObject(action, _serializerSettings);
 

@@ -19,7 +19,7 @@ namespace DotVVM.Electron.Modules
 
         public async Task UnSubscribeEventAsync(Guid actionId)
         {
-            if(actionId == Guid.Empty)
+            if (actionId == Guid.Empty)
             {
                 throw new ArgumentException(nameof(actionId));
             }
@@ -34,7 +34,7 @@ namespace DotVVM.Electron.Modules
             var normalizedModuleName = Regex.Replace(this.GetType().Name, @"Module$", string.Empty).FirstCharacterToLower();
             var normalizedMethodName = Regex.Replace(methodName, @"Async$", string.Empty).FirstCharacterToLower();
 
-            var action = new ElectronAction
+            var action = new ElectronAction<object[]>
             {
                 Module = normalizedModuleName,
                 Method = normalizedMethodName,
@@ -51,16 +51,16 @@ namespace DotVVM.Electron.Modules
             ThrowExceptionWhenMethodNameIsNull(methodName);
 
             var normalizedModuleName = Regex.Replace(this.GetType().Name, @"Module$", string.Empty).FirstCharacterToLower();
-            var normalizedEventName = Regex.Replace(Regex.Replace(methodName, @"Async$", string.Empty), @"^Subscribe", string.Empty) 
+            var normalizedEventName = Regex.Replace(Regex.Replace(methodName, @"Async$", string.Empty), @"^Subscribe", string.Empty)
                 .InsertDashBeforeUpperCharacters()
                 .ToLower();
 
-            var action = new ElectronAction
+            var action = new ElectronAction<ElectronEventArguments>
             {
                 Module = normalizedModuleName,
                 Method = normalizedEventName,
                 Type = ElectronRequestType.SubscribeEvent,
-                UsePreventDefault = usePreventDefault
+                Arguments = new ElectronEventArguments { UsePreventDefault = usePreventDefault }
             };
             await _handler.SubscribeToEventAsync(action, handler);
 
