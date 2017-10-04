@@ -14,6 +14,6 @@
   ],
   "author": "Adam Jez",
   "dependencies": {
-    "dotvvm-electron": "~0.0.24-beta1"
+    "dotvvm-electron": "~0.0.25-beta1"
   }
 }
