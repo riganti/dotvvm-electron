@@ -1,6 +1,6 @@
 using System;
 using DotVVM.Electron.Modules;
-using DotVVM.Framework.Configuration;
+using DotVVM.Electron.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

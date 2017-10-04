@@ -4,6 +4,7 @@ namespace DotVVM.Electron.Services
     {
         None = 0,
         Method = 1,
-        Event = 2
+        SubscribeEvent = 2,
+        UnSubscribeEvent = 3
     }
 }

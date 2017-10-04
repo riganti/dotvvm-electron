@@ -12,7 +12,7 @@
 	<h1>{{value: Title}}</h1>
 
     <dot:Button Text="Show MessageBox" Click="{command: ShowMessageBox()}" />
-    <dot:Button Text="Event browser window focus" Click="{command: BrowserWindowFocus()}" />
+    <dot:Button Text="Subscribe close on Main Window" Click="{command: SubscribeCloseAsync()}" />
     <dot:Button Text="Open external link" Click="{command: OpenExternal()}" />
     <dot:Button Text="Minimize" Click="{command: MinimizeWindow()}" />
     <dot:Button Text="Close" Click="{command: CloseWindow()}" />

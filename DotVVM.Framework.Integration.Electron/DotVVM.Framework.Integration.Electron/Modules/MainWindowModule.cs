@@ -1,5 +1,6 @@
 using DotVVM.Electron.Services;
 using System.Threading.Tasks;
+using System;
 
 namespace DotVVM.Electron.Modules
 {
@@ -17,6 +18,11 @@ namespace DotVVM.Electron.Modules
         public async Task MinimizeAsync()
         {
             await SendActionAsync();
+        }
+
+        public Task<Guid> SubscribeCloseAsync(Func<Task> eventAction, bool usePreventDefault)
+        {
+            return SubscribeEventAsync(eventAction, usePreventDefault);
         }
     }
 }

@@ -1,5 +1,5 @@
 module.exports.run = function (dirName, options) {
-  options = options || { };
+  options = options || {};
 
   const electron = require('electron')
   const os = require('os');
@@ -18,8 +18,8 @@ module.exports.run = function (dirName, options) {
   function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow(options.browserWindowOptions)
-   
-    if(options.browserWindowCreated && typeof options.browserWindowCreated == 'function') {
+
+    if (options.browserWindowCreated && typeof options.browserWindowCreated == 'function') {
       options.browserWindowCreated(mainWindow);
     }
 
@@ -142,6 +142,8 @@ module.exports.run = function (dirName, options) {
       perMessageDeflate: false
     });
 
+    var eventHandlers = {}; 
+
     ws.on('open', function open() {
       ws.send(JSON.stringify({ result: 'Connection opened', type: 'Event' }));
     });
@@ -156,33 +158,47 @@ module.exports.run = function (dirName, options) {
       var electronAction = JSON.parse(data);
       var electronModule = resolveElectronModule(electronAction.module);
 
-      if (electronAction.type == 'Method') {
-        var result = electronModule[electronAction.method].apply(electronModule, electronAction.arguments);
+      switch (electronAction.type) {
+        case 'Method':
+          var result = electronModule[electronAction.method].apply(electronModule, electronAction.arguments);
 
-        var response = {
-          type: "Response",
-          actionId: electronAction.id,
-          result: result
-        };
-
-        console.log('Sending: ' + JSON.stringify(response));
-
-        ws.send(JSON.stringify(response));
-      }
-      else if (electronAction.type == 'Event') {
-        electronModule.on(electronAction.method, (event) => {
           var response = {
-            type: "Event",
+            type: "Response",
             actionId: electronAction.id,
-            result: event
+            result: result
           };
 
-          ws.send(JSON.stringify(response));
+          console.log('Sending: ' + JSON.stringify(response));
 
-          if (electronAction.usePreventDefault) {
-            event.preventDefault();
+          ws.send(JSON.stringify(response));
+          break;
+        case 'SubscribeEvent':
+          var eventFunc = (event) => {
+            var response = {
+              type: "Event",
+              actionId: electronAction.id,
+              result: event
+            };
+
+            console.log('Sending: ' + JSON.stringify(response));
+
+            ws.send(JSON.stringify(response));
+
+            if (electronAction.usePreventDefault) {
+              event.preventDefault();
+            }
           }
-        });
+
+          electronModule.addListener(electronAction.method, eventFunc);
+          eventHandlers[electronAction.id] = {func: eventFunc, module: electronModule, method: electronAction.method};
+          break;
+        case 'UnSubscribeEvent':
+          var handler = eventHandlers[electronAction.id];
+          handler.module.removeListener(handler.method, handler.func);
+          
+          delete eventHandlers[electronAction.id];
+
+          break;
       }
     });
   }

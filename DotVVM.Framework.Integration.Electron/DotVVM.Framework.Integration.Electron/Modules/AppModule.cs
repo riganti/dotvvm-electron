@@ -11,16 +11,14 @@ namespace DotVVM.Electron.Modules
         {
         }
 
-        public async Task BeforeQuit(Action eventAction, bool usePreventDefault)
+        public async Task BeforeQuit(Func<Task> eventAction, bool usePreventDefault)
         {
-            await SubscribeEventAsync(usePreventDefault);
-            eventAction?.Invoke();
+            await SubscribeEventAsync(eventAction, usePreventDefault);
         }
 
-        public async Task BrowserWindowFocus(Action eventAction = null)
+        public async Task BrowserWindowFocus(Func<Task> eventAction)
         {
-            await SubscribeEventAsync();
-            eventAction?.Invoke();
+            await SubscribeEventAsync(eventAction);
         }
      
     }

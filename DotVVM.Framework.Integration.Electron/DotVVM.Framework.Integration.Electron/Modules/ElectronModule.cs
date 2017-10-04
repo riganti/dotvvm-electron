@@ -17,6 +17,16 @@ namespace DotVVM.Electron.Modules
             _handler = handler;
         }
 
+        public async Task UnSubscribeEventAsync(Guid actionId)
+        {
+            if(actionId == Guid.Empty)
+            {
+                throw new ArgumentException(nameof(actionId));
+            }
+
+            await _handler.UnSubscribeToEventAsync(actionId);
+        }
+
         protected async Task<JToken> SendActionAsync([CallerMemberName] string methodName = null, params object[] arguments)
         {
             ThrowExceptionWhenMethodNameIsNull(methodName);
@@ -36,21 +46,25 @@ namespace DotVVM.Electron.Modules
             return response.Result;
         }
 
-        protected async Task SubscribeEventAsync(bool usePreventDefault = false, [CallerMemberName] string methodName = null)
+        protected async Task<Guid> SubscribeEventAsync(Func<Task> handler, bool usePreventDefault = false, [CallerMemberName] string methodName = null)
         {
             ThrowExceptionWhenMethodNameIsNull(methodName);
 
             var normalizedModuleName = Regex.Replace(this.GetType().Name, @"Module$", string.Empty).FirstCharacterToLower();
-            var normalizedEventName = Regex.Replace(methodName, @"Async$", string.Empty).InsertDashBeforeUpperCharacters().ToLower();
+            var normalizedEventName = Regex.Replace(Regex.Replace(methodName, @"Async$", string.Empty), @"^Subscribe", string.Empty) 
+                .InsertDashBeforeUpperCharacters()
+                .ToLower();
 
             var action = new ElectronAction
             {
                 Module = normalizedModuleName,
                 Method = normalizedEventName,
-                Type = ElectronRequestType.Event,
+                Type = ElectronRequestType.SubscribeEvent,
                 UsePreventDefault = usePreventDefault
             };
-            await _handler.SendActionAsync(action);
+            await _handler.SubscribeToEventAsync(action, handler);
+
+            return action.Id;
         }
 
         private static void ThrowExceptionWhenMethodNameIsNull(string methodName)

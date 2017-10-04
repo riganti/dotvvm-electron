@@ -17,18 +17,31 @@ namespace WebApp.ViewModels
 
         public string Title { get; set; }
 
+        public Guid ActionId {get;set;}
+
         public DefaultViewModel(ElectronService electronService)
         {
             _electronService = electronService;
             Title = "Hello from DotVVM!";
         }
 
-        public async Task BrowserWindowFocus()
+        public async Task SubscribeCloseAsync()
         {
-            await _electronService.App.BrowserWindowFocus(() =>
+            ActionId = await _electronService.MainWindow.SubscribeCloseAsync(async () =>
             {
-                //some logic
-            });
+                var buttons = new List<string>{"Ok", "Cancel"};
+                var options = new ShowMessageBoxOptions
+                {
+                    Title = "Are you sure",
+                    Buttons = buttons
+                };
+                var result = await _electronService.Dialog.ShowMessageBox(options);   
+                if(buttons[result] == "Ok")
+                {
+                    await _electronService.MainWindow.UnSubscribeEventAsync(ActionId);
+                    await _electronService.MainWindow.CloseAsync();
+                }
+            }, true);
         }
 
         public async Task OpenExternal()
