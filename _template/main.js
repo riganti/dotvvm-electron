@@ -1,10 +1,10 @@
 var dotvvmElectron = require('dotvvm-electron');
-const { Menu } = require('electron')
 
 var integration = dotvvmElectron.run(__dirname, {
     browserWindowCreated: function (window) {
         window.maximize();
-    }
+    },
+    webAppPath: '/webapp/bin/dist/webapp'
 });
 
 const template = [
@@ -32,6 +32,8 @@ const template = [
         ]
     }
 ]
+
+const { Menu } = require('electron')
 
 const menu = Menu.buildFromTemplate(template)
 Menu.setApplicationMenu(menu)

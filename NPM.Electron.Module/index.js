@@ -81,7 +81,7 @@ module.exports.run = function (dirName, options) {
   function spawnWebServer(port) {
     var proc = require('child_process').spawn;
 
-    var webAppFile = path.join(dirName, '/webapp/bin/dist/webapp');
+    var webAppFile = path.join(dirName, options.webAppPath || '/webapp/bin/dist/webapp');
 
     if (os.platform() == 'win32') {
       webAppFile += '.exe';
@@ -90,7 +90,7 @@ module.exports.run = function (dirName, options) {
     webAppProcess = proc(webAppFile,
       {
         cwd: path.dirname(webAppFile),
-        env: { 'ASPNETCORE_URLS': `http://+:${port}` },
+        env: { 'ASPNETCORE_URLS': `http://127.0.0.1:${port}` },
       }
     );
 
