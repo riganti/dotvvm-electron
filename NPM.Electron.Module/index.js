@@ -122,14 +122,20 @@ module.exports.run = function (dirName, options) {
   });
 
   function initializeConnection(serverPort) {
-    webSocketConnect(`ws://localhost:${serverPort}/ws-electron`);
+    try {
+      webSocketConnect(`ws://localhost:${serverPort}/ws-electron`);
+    }
+    catch (err) {
+      console.log('unable to connect to websocket');
+    }
 
     console.log('redirecting to web page');
 
     var indexPageUrl = url.format({
       hostname: 'localhost',
       port: serverPort,
-      protocol: 'http'
+      protocol: 'http',
+      pathname: options.IndexPagePath
     });
 
     mainWindow.loadURL(indexPageUrl);
@@ -142,7 +148,7 @@ module.exports.run = function (dirName, options) {
       perMessageDeflate: false
     });
 
-    var eventHandlers = {}; 
+    var eventHandlers = {};
 
     ws.on('open', function open() {
       ws.send(JSON.stringify({ result: 'Connection opened', type: 'Event' }));
@@ -190,12 +196,12 @@ module.exports.run = function (dirName, options) {
           }
 
           electronModule.addListener(electronAction.method, eventFunc);
-          eventHandlers[electronAction.id] = {func: eventFunc, module: electronModule, method: electronAction.method};
+          eventHandlers[electronAction.id] = { func: eventFunc, module: electronModule, method: electronAction.method };
           break;
         case 'UnSubscribeEvent':
           var handler = eventHandlers[electronAction.id];
           handler.module.removeListener(handler.method, handler.func);
-          
+
           delete eventHandlers[electronAction.id];
 
           break;
