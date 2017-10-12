@@ -1,6 +1,6 @@
 {
   "name": "dotvvm-electron",
-  "version": "0.0.29-beta1",
+  "version": "0.0.30-beta1",
   "description": "DotVVM on Electron packages",
   "main": "index.js",
 

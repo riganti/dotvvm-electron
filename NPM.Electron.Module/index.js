@@ -81,7 +81,7 @@ module.exports.run = function (dirName, options) {
   function spawnWebServer(port) {
     var proc = require('child_process').spawn;
 
-    var webAppFile = path.join(dirName, options.webAppPath || '/webapp/bin/dist/webapp');
+    var webAppFile = path.join(dirName, options.relativeWebAppPath || '/webapp/bin/dist/webapp');
 
     if (os.platform() == 'win32') {
       webAppFile += '.exe';
@@ -123,7 +123,7 @@ module.exports.run = function (dirName, options) {
 
   function initializeConnection(serverPort) {
     try {
-      webSocketConnect(`ws://localhost:${serverPort}/ws-electron`);
+      webSocketConnect(`ws://127.0.0.1:${serverPort}/ws-electron`);
     }
     catch (err) {
       console.log('unable to connect to websocket');
@@ -132,10 +132,10 @@ module.exports.run = function (dirName, options) {
     console.log('redirecting to web page');
 
     var indexPageUrl = url.format({
-      hostname: 'localhost',
+      hostname: '127.0.0.1',
       port: serverPort,
       protocol: 'http',
-      pathname: options.IndexPagePath
+      pathname: options.indexPagePath
     });
 
     mainWindow.loadURL(indexPageUrl);

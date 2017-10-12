@@ -4,7 +4,8 @@ var integration = dotvvmElectron.run(__dirname, {
     browserWindowCreated: function (window) {
         window.maximize();
     },
-    webAppPath: '/webapp/bin/dist/webapp'
+    relativeWebAppPath: 'C:/Users/adamj/source/repos/web/src/DotvvmWeb/DotvvmWeb.Docs.AspNetCore/bin/dist/DotvvmWeb.Docs.AspNetCore',
+    indexPagePath: '/status'
 });
 
 const template = [
