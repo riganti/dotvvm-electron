@@ -37,9 +37,9 @@ namespace DotVVM.Electron.Modules
             await SendActionAsync();
         }
 
-        public Task<Guid> SubscribeCloseAsync(Func<Task> eventAction, bool usePreventDefault)
+        public Task<Guid> SubscribeCloseAsync(Func<Task> eventAction, bool usePreventDefault = false, bool isPageEvent = true)
         {
-            return SubscribeEventAsync(eventAction, usePreventDefault);
+            return SubscribeEventAsync(eventAction, usePreventDefault, isPageEvent);
         }
     }
 }

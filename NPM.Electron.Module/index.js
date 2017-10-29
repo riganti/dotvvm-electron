@@ -150,6 +150,20 @@ module.exports.run = function (dirName, options) {
 
     var eventHandlers = {};
 
+    var unsubscribeEvent = function (eventHandler) {
+      handler.module.removeListener(handler.method, handler.func);
+      delete eventHandlers[electronAction.id];
+    };
+
+    mainWindow.webContents.on('did-navigate', () => {
+      for (var key in eventHandlers) {
+        var eventHandler = eventHandlers[key];
+        if (eventHandler.isPageEvent) {
+          unsubscribeEvent(eventHandler);
+        }
+      }
+    });
+
     ws.on('open', function open() {
       ws.send(JSON.stringify({ result: 'Connection opened', type: 'Event' }));
     });
@@ -196,14 +210,16 @@ module.exports.run = function (dirName, options) {
           }
 
           electronModule.addListener(electronAction.method, eventFunc);
-          eventHandlers[electronAction.id] = { func: eventFunc, module: electronModule, method: electronAction.method };
+          eventHandlers[electronAction.id] = {
+            func: eventFunc,
+            module: electronModule,
+            method: electronAction.method,
+            isPageEvent: electronAction.isPageEvent
+          };
           break;
         case 'UnSubscribeEvent':
           var handler = eventHandlers[electronAction.id];
-          handler.module.removeListener(handler.method, handler.func);
-
-          delete eventHandlers[electronAction.id];
-
+          unsubscribeEvent(handler);
           break;
       }
     });

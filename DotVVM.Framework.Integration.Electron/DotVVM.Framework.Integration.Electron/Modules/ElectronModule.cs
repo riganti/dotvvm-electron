@@ -46,7 +46,8 @@ namespace DotVVM.Electron.Modules
             return response.Result;
         }
 
-        protected async Task<Guid> SubscribeEventAsync(Func<Task> handler, bool usePreventDefault = false, [CallerMemberName] string methodName = null)
+        protected async Task<Guid> SubscribeEventAsync(Func<Task> handler, bool usePreventDefault = false, bool isPageEvent = true,
+            [CallerMemberName] string methodName = null)
         {
             ThrowExceptionWhenMethodNameIsNull(methodName);
 
@@ -60,7 +61,7 @@ namespace DotVVM.Electron.Modules
                 Module = normalizedModuleName,
                 Method = normalizedEventName,
                 Type = ElectronRequestType.SubscribeEvent,
-                Arguments = new ElectronEventArguments { UsePreventDefault = usePreventDefault }
+                Arguments = new ElectronEventArguments { UsePreventDefault = usePreventDefault, IsPageEvent = isPageEvent }
             };
             await _handler.SubscribeToEventAsync(action, handler);
 
