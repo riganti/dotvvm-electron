@@ -1,8 +1,8 @@
 {
     "author": "RIGANTI s.r.o.",
     "classifications": [ "DotVVM", "Electron" ],
-    "identity": "DotVVM.Elektron",
-    "name": "DotVVM on Elektron",
-    "shortName": "dotvvm-elektron",
+    "identity": "DotVVM.Electron",
+    "name": "DotVVM on Electron",
+    "shortName": "dotvvm-electron",
     "tags":{"language": "C#", "type": "project"}
 }
